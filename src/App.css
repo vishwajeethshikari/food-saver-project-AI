@@ -1,0 +1,709 @@
+/* App.css */
+
+/* Layout */
+
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* REMOVE background image here so main app has clean background */
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: #f6fbf4;
+}
+
+.logo-main {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.logo-mark.highlight {
+  color: #16a34a;
+  margin-left: 0.15rem;
+}
+
+.notifications-btn {
+  border: none;
+  background: #ecfdf3;
+  color: #16a34a;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.app-main {
+  flex: 1;
+  padding: 1.5rem 1.25rem 4.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Optional: keep page-card to give white panel on the 4 pages */
+.page-card {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 1.4rem;
+  padding: 1.2rem 1.4rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* Generic page / typography */
+
+.page h1 {
+  margin: 0 0 0.4rem;
+  font-size: 1.9rem;
+}
+
+.page h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+}
+
+.page h3 {
+  margin: 0 0 0.2rem;
+  font-size: 1rem;
+}
+
+.subtitle {
+  margin: 0;
+  color: #6b7280;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.section-header {
+  margin-bottom: 1.1rem;
+}
+
+.section-header.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+/* Cards */
+
+.card {
+  background: #ffffff;
+  border-radius: 1.4rem;
+  padding: 1.2rem 1.4rem;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+}
+
+/* Dashboard page */
+
+.dashboard-page {
+  text-align: left;
+}
+
+.dashboard-today .impact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.impact-card {
+  border-radius: 1.4rem;
+  padding: 1.1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* First card: green */
+.impact-card:nth-child(1) {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+/* Second card: yellow */
+.impact-card:nth-child(2) {
+  background: #facc15;
+  color: #1f2937;
+}
+
+.impact-card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+}
+
+.impact-card .impact-value {
+  font-size: 1.7rem;
+  font-weight: 800;
+  margin-bottom: 0.15rem;
+}
+
+.impact-card .muted {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.impact-card:nth-child(2) .muted {
+  color: #4b5563;
+}
+
+/* This Week block */
+
+.dashboard-week {
+  margin-top: 1.4rem;
+}
+
+.dashboard-week .impact-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #16a34a;
+}
+
+/* Optional progress bar if you add it */
+.progress-bar-outer {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  margin: 0.7rem 0;
+  overflow: hidden;
+}
+
+.progress-bar-inner {
+  width: 70%;
+  height: 100%;
+  background: #16a34a;
+}
+
+/* Dashboard quick actions */
+
+.dashboard-actions {
+  margin-top: 1.6rem;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1rem;
+  margin-top: 0.8rem;
+}
+
+.tile-btn {
+  border-radius: 1.4rem;
+  border: none;
+  padding: 1rem 1.1rem;
+  background: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+}
+
+/* Portion page */
+
+.portion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.portion-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.portion-icon {
+  font-size: 1.7rem;
+}
+
+.portion-text h3 {
+  margin: 0 0 0.15rem;
+}
+
+.portion-amount {
+  margin-left: auto;
+  font-weight: 600;
+}
+
+.portion-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Donation + tips */
+
+.tips-section {
+  margin-top: 1.5rem;
+}
+
+.tip-card {
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.9rem 0.8rem;
+  border-radius: 1rem;
+  background: #fefce8;
+  margin-top: 0.7rem;
+}
+
+.tip-icon {
+  font-size: 1.5rem;
+}
+
+/* Reminders page */
+
+.reminders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.9rem;
+}
+
+.reminder-card {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.reminder-icon {
+  font-size: 1.7rem;
+}
+
+.reminder-content h3 {
+  margin: 0 0 0.2rem;
+}
+
+.expires {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #6b7280;
+}
+
+.priority {
+  display: inline-block;
+  margin-top: 0.3rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.priority-critical {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.priority-high {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.priority-medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.priority-low {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Reminders quick actions */
+
+.quick-actions {
+  margin-top: 1.5rem;
+}
+
+.quick-actions-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.pro-tip {
+  background: #ecfdf3;
+  border-radius: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px dashed #bbf7d0;
+}
+
+/* Buttons */
+
+.primary-btn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.3rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.primary-btn.small {
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+}
+
+.outline-btn {
+  background: #ffffff;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Bottom nav like mobile app (same as your earlier) */
+
+.bottom-nav {
+  position: sticky;
+  bottom: 0;
+  background: #ffffff;
+  padding: 0.6rem 1.2rem 0.9rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.nav-item {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.8rem;
+  color: #6b7280;
+  padding: 0.45rem 0.3rem;
+  border-radius: 999px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.nav-item span.nav-icon {
+  font-size: 1.2rem;
+}
+
+.nav-item-active {
+  background: #ecfdf3;
+  color: #16a34a;
+  font-weight: 600;
+}
+
+/* Full-screen food background for landing/login ONLY */
+
+.landing-bg {
+  min-height: 100vh;
+  background-image: url("https://images.pexels.com/photos/3731474/pexels-photo-3731474.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+}
+
+.landing-overlay {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-content {
+  max-width: 420px;
+  width: 100%;
+  padding: 2rem 1.5rem;
+  color: #f9fafb;
+  text-align: left;
+}
+
+.landing-content h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.landing-content p {
+  margin-bottom: 1.4rem;
+  color: #e5e7eb;
+}
+
+/* Login card */
+
+.login-card {
+  background: #ffffff;
+  border-radius: 1.2rem;
+  padding: 1.4rem 1.3rem 1.6rem;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+  color: #111827;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.login-card h2 {
+  margin-bottom: 0.2rem;
+  font-size: 1.3rem;
+}
+
+.login-card label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.login-card input {
+  margin-top: 0.25rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.6rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+}
+
+/* Reuse primary button, add full width */
+
+.primary-btn.full {
+  width: 100%;
+  text-align: center;
+}
+.form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.form-column label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.form-column input {
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.6rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+}
+
+.status-text {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.status-text.success {
+  color: #15803d;
+}
+.portion-people-control {
+  margin: 0.75rem 0 1rem;
+}
+
+.portion-people-control label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.portion-people-control input {
+  width: 70px;
+  padding: 0.4rem 0.5rem;
+  border-radius: 0.6rem;
+  border: 1px solid #d1d5db;
+}
+
+.status-text {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.status-text.success {
+  color: #15803d;
+}
+.donation-map-section {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.radius-control label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.radius-control input[type="range"] {
+  flex: 1;
+}
+
+.fake-map {
+  background: #e5f6eb;
+  border-radius: 1rem;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.fake-map-circle {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 0.5rem;
+  border-radius: 999px;
+  border: 2px dashed #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #166534;
+  font-weight: 600;
+}
+
+.places-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.place-card {
+  text-align: left;
+  border-radius: 0.9rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.place-card-active {
+  border-color: #16a34a;
+  background: #dcfce7;
+}
+
+.place-card-far {
+  opacity: 0.6;
+}
+
+.donation-form {
+  margin-top: 0.5rem;
+}
+
+.image-preview {
+  margin-top: 0.5rem;
+}
+
+.image-preview img {
+  max-width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-column label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.form-column input[type="text"],
+.form-column input[type="number"],
+.form-column input[type="file"] {
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.6rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+}
+
+.status-text {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.status-text.success {
+  color: #15803d;
+}
+.reminders-form {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.reminders-form input,
+.reminders-form select {
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.6rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+}
+
+.status-text {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.status-text.success {
+  color: #15803d;
+}
+
+.muted.small {
+  font-size: 0.8rem;
+}
+
+.toast {
+  position: fixed;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #16a34a;
+  color: #ffffff;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 50;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-pill {
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: #ecfdf3;
+  border: 1px solid #bbf7d0;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+}
+
+.user-name {
+  font-weight: 600;
+}
+
+.user-role {
+  color: #16a34a;
+}
+
+
+
+
