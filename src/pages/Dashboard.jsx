@@ -1,169 +1,228 @@
 // src/pages/Dashboard.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Dashboard.css";
 
-export default function Dashboard() {
-  // make stats dynamic so donations can change them
-  const [foodSaved, setFoodSaved] = useState(250);
-  const [moneySaved, setMoneySaved] = useState(12);
-  const [weekWaste, setWeekWaste] = useState(1.2);
+export default function Dashboard({ user, onLogout }) {
+  const navigate = useNavigate();
 
-  // reminder form state
-  const [showReminderForm, setShowReminderForm] = useState(false);
-  const [reminderText, setReminderText] = useState("");
-  const [reminderTime, setReminderTime] = useState("");
-  const [reminderMessage, setReminderMessage] = useState("");
+  // ------------------------------------------
+  // LOCAL STORAGE TRACKING
+  // ------------------------------------------
+  const [totalSaved, setTotalSaved] = useState(
+    Number(localStorage.getItem("totalSaved") || 0)
+  );
+  const [dailySave, setDailySave] = useState("");
+  const [streak, setStreak] = useState(
+    Number(localStorage.getItem("streak") || 0)
+  );
 
-  // donation form state
-  const [showDonationForm, setShowDonationForm] = useState(false);
-  const [donationItem, setDonationItem] = useState("");
-  const [donationQty, setDonationQty] = useState("");
-  const [donationMessage, setDonationMessage] = useState("");
+  // ------------------------------------------
+  // TOAST + AI CHAT
+  // ------------------------------------------
+  const [toast, setToast] = useState("");
+  const [aiOpen, setAiOpen] = useState(false);
+  const [aiInput, setAiInput] = useState("");
 
-  function handleSetReminder(e) {
-    e.preventDefault();
-    if (!reminderText.trim() || !reminderTime) {
-      setReminderMessage("Please enter reminder text and time.");
+  const [aiMessages, setAiMessages] = useState([
+    { from: "ai", text: "Tell me what food you saved today." }
+  ]);
+
+  // ------------------------------------------
+  // LOGOUT
+  // ------------------------------------------
+  const handleLogout = () => {
+    onLogout();
+    navigate("/");
+  };
+
+  // ------------------------------------------
+  // TOAST FUNCTION
+  // ------------------------------------------
+  const showToast = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(""), 2000);
+  };
+
+  // ------------------------------------------
+  // USER: SAVE TODAY'S FOOD
+  // ------------------------------------------
+  const saveTodayFood = () => {
+    if (!dailySave.trim()) {
+      showToast("Enter grams first!");
       return;
     }
-    const timeLabel = new Date(reminderTime).toLocaleString();
-    setReminderMessage(
-      `Reminder set: "${reminderText.trim()}" at ${timeLabel}. You will get a notification at that time.`
-    );
-    setReminderText("");
-    setReminderTime("");
-  }
 
-  function handleDonate(e) {
-    e.preventDefault();
-    if (!donationItem.trim() || !donationQty.trim()) {
-      setDonationMessage("Please enter item and quantity.");
+    const amount = Number(dailySave);
+    const newTotal = totalSaved + amount;
+    const newStreak = streak + 1;
+
+    setTotalSaved(newTotal);
+    setStreak(newStreak);
+
+    localStorage.setItem("totalSaved", newTotal);
+    localStorage.setItem("streak", newStreak);
+
+    showToast("✔ Saved!");
+
+    setDailySave("");
+  };
+
+  // ------------------------------------------
+  // AI CHAT BOT RESPONSE
+  // ------------------------------------------
+  const handleAiSend = () => {
+    if (!aiInput.trim()) return;
+
+    const msg = aiInput;
+    const lower = msg.toLowerCase();
+
+    setAiMessages((prev) => [...prev, { from: "user", text: msg }]);
+    setAiInput("");
+
+    let reply = "";
+
+    if (lower.includes("rice")) reply = "Rice stays fresh 4–5 hrs. Use first!";
+    else if (lower.includes("dal") || lower.includes("lentils"))
+      reply = "Dal can be refrigerated for 24 hrs safely.";
+    else if (lower.includes("bread")) reply = "Bread expiring? Toast or donate.";
+    else if (lower.includes("saved"))
+      reply = `You've saved ${totalSaved}g so far—great!`;
+    else if (!isNaN(msg))
+      reply = `Tracking ${msg} grams. Want me to add this to your log?`;
+    else reply = "Tell me any item, I’ll guide you.";
+
+    setTimeout(
+      () =>
+        setAiMessages((prev) => [...prev, { from: "ai", text: reply }]),
+      600
+    );
+  };
+
+  // ------------------------------------------
+  // ROLE-BASED NAVIGATION
+  // ------------------------------------------
+  const handleDonate = () => {
+    if (user.role !== "donor") {
+      showToast("❌ Only donors can donate");
       return;
     }
-    setDonationMessage(
-      `Thanks! Your donation of ${donationQty.trim()} ${donationItem.trim()} is recorded.`
-    );
-    setDonationItem("");
-    setDonationQty("");
+    navigate("/donation");
+  };
 
-    // small visual change in stats when donating
-    setFoodSaved((prev) => prev + 100);
-    setMoneySaved((prev) => prev + 3);
-    setWeekWaste((prev) => Math.max(0, prev - 0.1));
-  }
+  const handleNearby = () => {
+    if (user.role !== "user") {
+      showToast("❌ Donors cannot claim food");
+      return;
+    }
+    navigate("/nearby-food");
+  };
 
+  const handleReminder = () => navigate("/reminders");
+  const handleStats = () => showToast("📊 Stats coming soon");
+
+  // ------------------------------------------
+  // UI
+  // ------------------------------------------
   return (
-    <div className="page dashboard-page">
-      <div className="page-card">
-        <section className="section-header">
-          <p className="subtitle">Welcome back!</p>
-          <h1>Let's save food together</h1>
-        </section>
+    <div className="dashboard-page fade-in">
 
-        <section className="card dashboard-today">
-          <h2>Today's Impact</h2>
-          <div className="impact-grid">
-            <div className="impact-card">
-              <h3>Food Saved</h3>
-              <p className="impact-value">{foodSaved}g</p>
-              <p className="muted">vs yesterday</p>
-            </div>
-            <div className="impact-card">
-              <h3>Money Saved</h3>
-              <p className="impact-value">₹{moneySaved}</p>
-              <p className="muted">this week</p>
-            </div>
+      {/* LOGOUT BTN */}
+      <button className="logout-btn" onClick={handleLogout}>⏻ Logout</button>
+
+      {/* WELCOME CARD */}
+      <section className="hero-card">
+        <h1 className="hero-title">👋 Hello {user.username}!</h1>
+        <p className="hero-sub">
+          {user.role === "donor"
+            ? "You can donate food and manage contributors."
+            : "Track your food-saving progress here."}
+        </p>
+      </section>
+
+      {/* IMPACT CARDS */}
+      <section className="impact-row">
+        <div className="impact-card card-shadow">
+          <span className="impact-icon">🥗</span>
+          <div>
+            <h2>{totalSaved} <span className="unit">g</span></h2>
+            <p>Total Food Saved</p>
           </div>
-        </section>
+        </div>
 
-        <section className="card dashboard-week">
-          <h2>This Week</h2>
-          <p className="muted">Food Waste Reduced</p>
-          <p className="impact-value">{weekWaste.toFixed(1)}kg</p>
-          <p className="muted">-23% from last week</p>
-          <p className="muted">Goal: 1.5kg reduction</p>
-        </section>
-
-        <section className="dashboard-actions">
-          <h2>Quick Actions</h2>
-          <div className="quick-grid">
-            <button
-              className="tile-btn"
-              onClick={() => setShowReminderForm((v) => !v)}
-            >
-              <h3>Set Reminder</h3>
-              <p className="muted">Never forget expiry dates</p>
-            </button>
-            <button
-              className="tile-btn"
-              onClick={() => setShowDonationForm((v) => !v)}
-            >
-              <h3>Donate Food</h3>
-              <p className="muted">Help those in need</p>
-            </button>
+        <div className="impact-card card-shadow">
+          <span className="impact-icon">🔥</span>
+          <div>
+            <h2>{streak} <span className="unit">days</span></h2>
+            <p>Saving Streak</p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {showReminderForm && (
-          <section className="card">
-            <h2>New Reminder</h2>
-            <form className="form-column" onSubmit={handleSetReminder}>
-              <label>
-                Reminder text
-                <input
-                  type="text"
-                  value={reminderText}
-                  onChange={(e) => setReminderText(e.target.value)}
-                  placeholder="e.g. Use leftover curry"
-                />
-              </label>
-              <label>
-                Time
-                <input
-                  type="datetime-local"
-                  value={reminderTime}
-                  onChange={(e) => setReminderTime(e.target.value)}
-                />
-              </label>
-              <button type="submit" className="primary-btn">
-                Save reminder
-              </button>
-            </form>
-            {reminderMessage && (
-              <p className="status-text success">{reminderMessage}</p>
-            )}
-          </section>
+      {/* USER ONLY → DAILY SAVE INPUT */}
+      {user.role === "user" && (
+        <section className="card projected-live">
+          <h3>Log Today’s Saved Food</h3>
+
+          <input
+            type="number"
+            placeholder="e.g. 120 grams"
+            value={dailySave}
+            onChange={(e) => setDailySave(e.target.value)}
+          />
+
+          <button className="save-btn" onClick={saveTodayFood}>Save</button>
+        </section>
+      )}
+
+      {/* QUICK ACTIONS */}
+      <section className="card quick-section">
+        <h3>Quick Actions</h3>
+
+        <div className="quick-grid">
+          <button onClick={handleReminder}>🔔 Reminders</button>
+          <button onClick={handleDonate}>🤝 Donate</button>
+          <button onClick={handleNearby}>📍 Nearby</button>
+          <button onClick={handleStats}>📊 Stats</button>
+        </div>
+
+        {toast && <div className="toast-popup">{toast}</div>}
+      </section>
+
+      {/* AI CHAT */}
+      <section className="card ai-section">
+        <h3>AI Suggestions</h3>
+
+        {!aiOpen && (
+          <p className="muted small clickable" onClick={() => setAiOpen(true)}>
+            Tap to chat →
+          </p>
         )}
 
-        {showDonationForm && (
-          <section className="card">
-            <h2>Quick Donation</h2>
-            <form className="form-column" onSubmit={handleDonate}>
-              <label>
-                Food item
-                <input
-                  value={donationItem}
-                  onChange={(e) => setDonationItem(e.target.value)}
-                  placeholder="e.g. Rice, curry"
-                />
-              </label>
-              <label>
-                Quantity
-                <input
-                  value={donationQty}
-                  onChange={(e) => setDonationQty(e.target.value)}
-                  placeholder="e.g. 2 boxes"
-                />
-              </label>
-              <button type="submit" className="primary-btn">
-                Record donation
-              </button>
-            </form>
-            {donationMessage && (
-              <p className="status-text success">{donationMessage}</p>
-            )}
-          </section>
+        {aiOpen && (
+          <div className="ai-chat fade-in">
+            <div className="chat-area">
+              {aiMessages.map((m, i) => (
+                <div key={i} className={m.from === "ai" ? "msg-ai" : "msg-user"}>
+                  {m.text}
+                </div>
+              ))}
+            </div>
+
+            <div className="chat-input">
+              <input
+                type="text"
+                value={aiInput}
+                placeholder="Ask your assistant..."
+                onChange={(e) => setAiInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleAiSend()}
+              />
+              <button onClick={handleAiSend}>➤</button>
+            </div>
+          </div>
         )}
-      </div>
+      </section>
+
     </div>
   );
 }

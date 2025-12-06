@@ -1,0 +1,145 @@
+/* ---------- Page shell ---------- */
+.food-rem-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f0fff6 0%, #fbfbfb 60%);
+  display: flex;
+  justify-content: center;
+  padding: 18px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #06372a;
+}
+.food-rem-shell {
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* Header & Tabs */
+.food-rem-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.header-left { display:flex; gap:12px; align-items:center; }
+.header-icon { font-size:28px; background: #dcfce7; padding:10px; border-radius:10px; }
+.header-subtitle { margin-top:4px; color:#6b7280; font-size:0.9rem; }
+
+.tabs { display:flex; gap:8px; }
+.tab-btn {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: rgba(255,255,255,0.6);
+  cursor: pointer;
+  font-weight: 700;
+  color: #065f46;
+  transition: all 0.18s ease;
+}
+.tab-btn.active {
+  background: linear-gradient(90deg,#bbf7d0,#dcfce7);
+  box-shadow: 0 8px 26px rgba(16,185,129,0.12);
+  border-color: rgba(6,87,70,0.06);
+}
+
+/* Base card */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 12px 30px rgba(7,89,48,0.04);
+  border: 1px solid rgba(16,185,129,0.06);
+  margin-bottom: 14px;
+}
+
+/* Add new grid */
+.add-grid {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+.add-left { display:flex; gap:12px; align-items:center; flex:1; min-width:260px; }
+.input { padding:10px 12px; border-radius:10px; border:1px solid #e6eef0; outline:none; }
+.input.small { padding:8px; width:90px; }
+.row { display:flex; gap:8px; align-items:center; }
+.add-right { display:flex; flex-direction:column; gap:8px; align-items:flex-end; min-width:160px; }
+.btn-add-primary {
+  background: linear-gradient(90deg,#10b981,#059669);
+  color:#fff; padding:10px 14px; border-radius:10px; border:0; cursor:pointer; font-weight:700;
+  box-shadow: 0 10px 30px rgba(16,185,129,0.14);
+}
+
+/* Stock grid */
+.section-header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; }
+.section-pill { background:#ecfdf5; padding:6px 10px; border-radius:999px; color:#047857; border:1px solid #bbf7d0; font-weight:700; font-size:0.85rem;}
+.stock-grid { display:grid; gap:10px; }
+
+/* Stock card */
+.stock-card {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px;
+  border-radius:12px;
+  background: linear-gradient(180deg,#ffffff,#f7fffb);
+  border: 1px solid rgba(6,87,70,0.03);
+}
+.stock-left { display:flex; gap:10px; align-items:center; min-width:160px; }
+.stock-icon { width:48px; height:48px; border-radius:12px; background:#f0fff4; display:flex; align-items:center; justify-content:center; font-size:20px; }
+.stock-name { font-weight:700; color:#083d2b; }
+.stock-mid { flex:1; padding:0 12px; }
+.stock-bar { width:100%; background:#eef9f0; height:12px; border-radius:999px; overflow:hidden; border:1px solid rgba(16,185,129,0.06);}
+.stock-fill { height:100%; transition: width 0.35s ease; }
+.stock-fill.green { background: linear-gradient(180deg,#9ef2bd,#10b981); }
+.stock-fill.medium { background: linear-gradient(180deg,#fde68a,#f59e0b); }
+.stock-fill.low { background: linear-gradient(180deg,#fda4a4,#ef4444); }
+
+.stock-actions { display:flex; gap:8px; align-items:center; }
+.input-qty { width:80px; padding:8px; border-radius:8px; border:1px solid #e6eef0; text-align:center; }
+.btn-small { padding:8px 10px; background:#ffffff; border-radius:8px; border:1px solid #e6eef0; cursor:pointer; }
+.btn-remove { padding:8px 10px; background:#fff0f0; border-radius:8px; border:1px solid #ffccd5; color:#b91c1c; cursor:pointer; }
+
+/* Overview (User) */
+.overview-card { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.mini-card { background:#f7fffa; padding:10px; border-radius:8px; text-align:center; min-width:90px; }
+.mini-number { font-weight:800; color:#065f46; font-size:1.1rem; }
+.mini-label { font-size:12px; color:#475569; }
+
+/* Take card */
+.take-grid { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.select-food { padding:10px; border-radius:10px; border:1px solid #e6eef0; min-width:220px; }
+.btn-primary { background: linear-gradient(90deg,#16a34a,#059669); color:white; padding:10px 14px; border-radius:10px; border:0; cursor:pointer; font-weight:700; }
+
+/* Visual shelf */
+.visual-shelf { display:flex; gap:12px; margin-top:12px; overflow:auto; padding-bottom:6px; }
+.shelf-card { min-width:160px; background:#fff; padding:10px; border-radius:10px; border:1px solid rgba(6,87,70,0.03); display:flex; flex-direction:column; gap:8px; }
+.shelf-top { display:flex; gap:8px; align-items:center; }
+.shelf-icon { width:40px; height:40px; border-radius:10px; background:#f0fff4; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.shelf-bar { height:10px; background:#eef9f0; border-radius:999px; overflow:hidden; }
+.shelf-fill { height:100%; transition: width 0.35s ease; }
+.badge { padding:4px 8px; border-radius:999px; font-weight:700; font-size:12px; }
+.badge.green { background:#ecfdf5; color:#047857; }
+.badge.yellow { background:#fff7ed; color:#b45309; }
+.badge.red { background:#fff1f2; color:#b91c1c; }
+
+/* History list */
+.history-list { margin-top:8px; display:flex; flex-direction:column; gap:10px; }
+.history-row { display:flex; gap:12px; align-items:flex-start; }
+.history-dot { width:10px; height:10px; border-radius:50%; background:#10b981; margin-top:6px; }
+.history-body { flex:1; background:#ffffff; padding:10px; border-radius:8px; border:1px solid rgba(6,87,70,0.03); }
+.history-text { font-weight:600; color:#083d2b; }
+
+/* Small helpers */
+.muted { color:#6b7280; }
+.tiny { font-size:12px; color:#6b7280; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .food-rem-shell { padding: 8px; }
+  .stock-left { min-width:120px; }
+  .visual-shelf { gap:8px; }
+  .add-grid { flex-direction:column; align-items:stretch; }
+}

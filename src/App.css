@@ -703,6 +703,75 @@
 .user-role {
   color: #16a34a;
 }
+.role-switch {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.role-switch button {
+  flex: 1;
+  padding: 10px;
+  background: #ddd;
+  border: none;
+  border-radius: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.role-switch button:last-child {
+  margin-right: 0;
+}
+
+.role-switch .active {
+  background: #00a651;
+  color: white;
+}
+
+.fade-in {
+  animation: fadeIn 0.7s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Make all pages full height */
+.app-root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Page content scrolls */
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 70px; /* space for bottom nav */
+}
+
+/* Bottom navigation fixed */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 62px;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Make each screen look like full screen app */
+.page-full {
+  min-height: 100%;
+  width: 100%;
+  padding: 16px;
+}
 
 
 
